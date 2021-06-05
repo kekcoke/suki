@@ -8,6 +8,7 @@ import HomepageLayout from './layouts/HomepageLayout';
 // pages
 import Homepage from './pages/Homepage';
 import Signup from './pages/Signup';
+import Login from './pages/Login';
 
 // global styles
 import './default.scss';
@@ -25,7 +26,12 @@ function App() {
           <MainLayout>
             <Signup />
           </MainLayout>
-        )} />
+        )}/>
+        <Route path="/login" render={() => (
+          <MainLayout>
+            <Login />
+          </MainLayout>
+        )}/>
       </Switch>
     </div>
   );
