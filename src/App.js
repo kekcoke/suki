@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { Component, useCallback } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { auth } from './firebase/utils';
 
 // layouts 
@@ -28,7 +28,11 @@ class App extends Component {
 
   componentDidMount() {
     this.auth = auth.onAuthStateChanged(userAuth => {
-      if (!userAuth) return;
+      if (!userAuth) {
+        this.setState({
+          ...initialState
+        });
+      };
 
       this.setState({
         currentUser: userAuth
@@ -56,10 +60,11 @@ class App extends Component {
               <Signup />
             </MainLayout>
           )}/>
-          <Route path="/login" render={() => (
-            <MainLayout currentUser={currentUser}>
-              <Login />
-            </MainLayout>
+          <Route path="/login" 
+            render={() => currentUser ? <Redirect to="/" /> : (
+              <MainLayout currentUser={currentUser}>
+                <Login />
+              </MainLayout>
           )}/>
         </Switch>
       </div>
