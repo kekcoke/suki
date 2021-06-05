@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import './styles.scss';
+import SignupComponent from './../../components/Signup';
 
 class Signup extends Component {
+    
     render() {
-        return (
-            <div>
-                <h1>Sign Up</h1>
-            </div>
-        );
+        return <SignupComponent />
     }
 }
 
