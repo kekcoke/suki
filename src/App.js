@@ -7,7 +7,9 @@ import HomepageLayout from './layouts/HomepageLayout';
 
 // pages
 import Homepage from './pages/Homepage';
-import Registration from './pages/Registration';
+import Signup from './pages/Signup';
+
+// global styles
 import './default.scss';
 
 function App() {
@@ -15,11 +17,15 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/" render={() => (
-          <MainLayout>
+          <HomepageLayout>
             <Homepage />
-          </MainLayout>
+          </HomepageLayout>
         )}/>
-        <Route path="/registration" component={Registration} />
+        <Route path="/signup" render={() => (
+          <MainLayout>
+            <Signup />
+          </MainLayout>
+        )} />
       </Switch>
     </div>
   );
