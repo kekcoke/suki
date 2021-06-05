@@ -11,7 +11,8 @@ body {
 html,
 body,
 #root,
-.App {
+.App,
+.fullHeight {
     //let non-header take rest height of viewport w/o restriction
     height: 100%;
 }
