@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './styles.scss';
 import FormInput from './../Forms/FormInput';
 import Button from './../Forms/Button';
+import Address from './../Address';
 
 const initialState = {
     displayName: '',
@@ -9,6 +10,7 @@ const initialState = {
     phone: '',
     password: '',
     confirmPassword: '',
+    address: ''
 };
 
 class SignupComponent extends Component {
@@ -34,7 +36,6 @@ class SignupComponent extends Component {
             <div className="signUp">
                 <div className="wrap">
                     <h2>Signup</h2>
-
                     <div className="formWrap">
                         <form>
                             <FormInput
@@ -43,6 +44,7 @@ class SignupComponent extends Component {
                                 value={displayName}
                                 placeholder="Full name"
                                 onChange={this.handleChange}
+                                required
                             />
 
                             <FormInput
@@ -51,6 +53,7 @@ class SignupComponent extends Component {
                                 value={email}
                                 placeholder="Email"
                                 onChange={this.handleChange}
+                                required
                             />
 
                             <FormInput
@@ -59,14 +62,16 @@ class SignupComponent extends Component {
                                 value={phone}
                                 placeholder="Phone"
                                 onChange={this.handleChange}
+                                required
                             />
 
                             <FormInput
                                 type="password"
                                 name="password"
                                 value={password}
-                                placeholder="Full name"
+                                placeholder="Password"
                                 onChange={this.handleChange}
+                                required
                             />
 
                             <FormInput
@@ -75,8 +80,14 @@ class SignupComponent extends Component {
                                 value={confirmPassword}
                                 placeholder="Confirm Password"
                                 onChange={this.handleChange}
+                                required
                             />
 
+                            <h3>
+                                Address
+                            </h3>
+                            <p> Enter your address. You can also enter your address from your profile or during checkout. </p>
+                            <Address address={null} required={false} onChange={this.handleChange}/>
                             <Button type="submit">
                                 Register
                             </Button>
