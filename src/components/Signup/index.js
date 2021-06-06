@@ -135,10 +135,14 @@ class SignupComponent extends Component {
                                 onChange={this.handleChange}
                                 required
                             />
-                            <h3>
-                                Address
-                            </h3>
-                            <p> Enter your address. You can also enter your address from your profile or during checkout. </p>
+                            { address.name && (
+                                <div>
+                                    <h3>
+                                        Address
+                                    </h3>
+                                    <p> Enter your address. You can also enter your address from your profile or during checkout. </p>
+                                </div>
+                            )}
                             <Button type="submit">
                                 Register
                             </Button>
