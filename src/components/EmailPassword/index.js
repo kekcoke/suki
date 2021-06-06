@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import './styles.scss';
 
 import AuthWrapper from './../AuthWrapper';
@@ -8,7 +9,8 @@ import Button from './../Forms/Button';
 import { auth } from './../../firebase/utils';
 
 const initialState = {
-    email: ''
+    email: '',
+    response: []
 };
 
 class EmailPassword extends Component {
@@ -33,15 +35,16 @@ class EmailPassword extends Component {
         try {
             const { email } = this.state;
             const config = {
-                url: 'https://localhost:3000/login'
+                url: 'http://localhost:3000/login'
             };
 
             await auth.sendPasswordResetEmail(email, config)
                 .then(() => {
-                    alert('Password Reset');
+                    this.setState( { response: ['If the email matches our records, check your email for reset instructions. You will redirected shortly.'] });
+                    setTimeout(() => this.props.history.push('/login'), 2000);
                 })
                 .catch(() => {
-                    alert('Something went wrong');
+                    this.setState( { response: ['Oops. Something went wrong. Contact us if the issue persists.'] });
                 });
         } catch (err) {
             console.error(err);
@@ -49,13 +52,20 @@ class EmailPassword extends Component {
     }
 
     render() {
-        const { email } = this.state;
+        const { email, response } = this.state;
         const configAuthWrapper = {
             headline: 'Email Password'
         };
 
         return (
             <AuthWrapper {...configAuthWrapper}>
+                <div className="formWrap">
+                    {response.length > 0 && (
+                        <ul>
+                            {response.map((e, index) => <li key={index}> {e} </li>)}
+                        </ul>
+                    )}
+                </div>
                 <form onSubmit={this.handleSubmit}>
                     <FormInput
                         type="email"
@@ -63,6 +73,7 @@ class EmailPassword extends Component {
                         value={email}
                         placeholder="Email"
                         onChange={this.handleChange}
+                        required
                     />
 
                     <Button>
@@ -75,4 +86,4 @@ class EmailPassword extends Component {
     }
 }
 
-export default EmailPassword;
+export default withRouter(EmailPassword);
