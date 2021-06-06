@@ -5,7 +5,8 @@ import { auth, handleUserProfile } from './../../firebase/utils';
 
 import FormInput from './../Forms/FormInput';
 import Button from './../Forms/Button';
-import Address from './../Address';
+// import Address from './../Address';
+import AuthWrapper from './../AuthWrapper';
 
 const initialState = {
     displayName: '',
@@ -77,79 +78,79 @@ class SignupComponent extends Component {
 
     render() {
         const { displayName, email, phone, password, confirmPassword, errors, address } = this.state;
+        const configAuthWrapper = {
+            headline: 'Signup'
+        };
 
         return (
-            <div className="signUp">
-                <div className="wrap">
-                    <h2>Signup</h2>
+            <AuthWrapper {...configAuthWrapper}>
+                <div className="formWrap">
                     {errors.length > 0 && (
                         <ul>
                             {errors.map((err, index) => {
-                                return(<li key={index}> {err} </li>)
+                                return (<li key={index}> {err} </li>)
                             })}
                         </ul>
                     )}
-                    <div className="formWrap">
-                        <form onSubmit={this.handleFormSubmit}>
-                            <FormInput
-                                type="text"
-                                name="displayName"
-                                value={displayName}
-                                placeholder="Full name"
-                                onChange={this.handleChange}
-                                required
-                            />
+                    <form onSubmit={this.handleFormSubmit}>
+                        <FormInput
+                            type="text"
+                            name="displayName"
+                            value={displayName}
+                            placeholder="Full name"
+                            onChange={this.handleChange}
+                            required
+                        />
 
-                            <FormInput
-                                type="text"
-                                name="email"
-                                value={email}
-                                placeholder="Email"
-                                onChange={this.handleChange}
-                                required
-                            />
+                        <FormInput
+                            type="text"
+                            name="email"
+                            value={email}
+                            placeholder="Email"
+                            onChange={this.handleChange}
+                            required
+                        />
 
-                            <FormInput
-                                type="phone"
-                                name="phone"
-                                value={phone}
-                                placeholder="Phone"
-                                onChange={this.handleChange}
-                                required
-                            />
+                        <FormInput
+                            type="phone"
+                            name="phone"
+                            value={phone}
+                            placeholder="Phone"
+                            onChange={this.handleChange}
+                            required
+                        />
 
-                            <FormInput
-                                type="password"
-                                name="password"
-                                value={password}
-                                placeholder="Password"
-                                onChange={this.handleChange}
-                                required
-                            />
+                        <FormInput
+                            type="password"
+                            name="password"
+                            value={password}
+                            placeholder="Password"
+                            onChange={this.handleChange}
+                            required
+                        />
 
-                            <FormInput
-                                type="password"
-                                name="confirmPassword"
-                                value={confirmPassword}
-                                placeholder="Confirm Password"
-                                onChange={this.handleChange}
-                                required
-                            />
-                            { address.name && (
-                                <div>
-                                    <h3>
-                                        Address
+                        <FormInput
+                            type="password"
+                            name="confirmPassword"
+                            value={confirmPassword}
+                            placeholder="Confirm Password"
+                            onChange={this.handleChange}
+                            required
+                        />
+                        {address.name && (
+                            <div>
+                                <h3>
+                                    Address
                                     </h3>
-                                    <p> Enter your address. You can also enter your address from your profile or during checkout. </p>
-                                </div>
-                            )}
-                            <Button type="submit">
-                                Register
+                                <p> Enter your address. You can also enter your address from your profile or during checkout. </p>
+                            </div>
+                        )}
+                        <Button type="submit">
+                            Register
                             </Button>
-                        </form>
-                    </div>
+                    </form>
                 </div>
-            </div>
+            </AuthWrapper>
         );
     }
 }

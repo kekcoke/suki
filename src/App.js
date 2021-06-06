@@ -10,6 +10,7 @@ import HomepageLayout from './layouts/HomepageLayout';
 import Homepage from './pages/Homepage';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Recovery from './pages/Recovery';
 
 // global styles
 import './default.scss';
@@ -61,18 +62,23 @@ class App extends Component {
             <HomepageLayout currentUser={currentUser}>
               <Homepage />
             </HomepageLayout>
-          )}/>
+          )} />
           <Route path="/signup" render={() => (
             <MainLayout currentUser={currentUser}>
               <Signup />
             </MainLayout>
-          )}/>
-          <Route path="/login" 
+          )} />
+          <Route path="/login"
             render={() => currentUser ? <Redirect to="/" /> : (
               <MainLayout currentUser={currentUser}>
                 <Login />
               </MainLayout>
-          )}/>
+            )} />
+          <Route path="/recovery" render={() => (
+            <MainLayout>
+              <Recovery />
+            </MainLayout>
+          )} />
         </Switch>
       </div>
     );
