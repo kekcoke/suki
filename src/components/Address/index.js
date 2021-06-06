@@ -5,7 +5,7 @@ import FormInput from './../Forms/FormInput';
 const initialState = {
     required: false,
     name: '',
-    address: '',
+    primaryAddress: '',
     secondaryAddress: '',
     cityTown: '',
     regionStateProvince: '',
@@ -18,18 +18,8 @@ class Address extends Component {
     constructor(props) {
         super(props)
 
-        if (!this.props.address) {
-            this.state = { ...initialState };
-        } else if (this.props.required) {
-            if (!this.props.address) {
-                this.state = { ...initialState };
-                // THEN SET REQUIRED TO TRUE
-            } else if (this.props.address) {
-                // THEN ASSIGN state with address
-            }
-        } else {
-            this.state = { ...initialState };
-        }
+        const { address, required } = props;
+        this.state = { address, required };
 
         this.handleChange = this.handleChange.bind(this);
         // some thing to shoot it up!???
@@ -48,7 +38,9 @@ class Address extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.clearForm();
+        this.setState({
+            ...initialState
+        });
         // this.props.dispatch(addParlor(this.state))
         // this is just some redux.
         // just trust that it does what it's supposed to do,
@@ -69,7 +61,7 @@ class Address extends Component {
     }*/
 
     render() {
-        const { name, address, secondaryAddress, cityTown, regionStateProvince, postalCode, country } = this.state;
+        const { name, primaryAddress, secondaryAddress, cityTown, regionStateProvince, postalCode, country } = this.state;
         return (
             <div>
                 <FormInput
@@ -83,8 +75,8 @@ class Address extends Component {
                 <FormInput
                     id="autocomplete"
                     type="text"
-                    name="address"
-                    value={address}
+                    name="primaryAddress"
+                    value={primaryAddress}
                     placeholder="Address"
                     onChange={this.handleChange}
                 />

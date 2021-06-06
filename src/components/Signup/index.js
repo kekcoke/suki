@@ -15,7 +15,7 @@ const initialState = {
     confirmPassword: '',
     address: {
         name: '',
-        address: '',
+        primaryAddress: '',
         secondaryAddress: '',
         cityTown: '',
         regionStateProvince: '',
@@ -139,7 +139,6 @@ class SignupComponent extends Component {
                                 Address
                             </h3>
                             <p> Enter your address. You can also enter your address from your profile or during checkout. </p>
-                            <Address address={address} required={false} onChange={this.handleChange}/>
                             <Button type="submit">
                                 Register
                             </Button>
