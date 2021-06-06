@@ -21,16 +21,30 @@ export const handleUserProfile = async (userAuth, additionalData) => {
   const snapshot = await userRef.get();
 
   if (!snapshot.exists) {
-    const { displayName, email } = userAuth;
+    const { displayName, email, phoneNumber: phone } = userAuth;
     const timestamp = new Date();
-
-    try {
-      await userRef.set({
+    // if via email provider auth, use phone from useAuth. else it comes from signup form. get the phone value.
+    // Note that email providers may not have address and that address object passed on here. Create missing stuff elsewhere.
+    let userObject;
+    if (phone) {
+      userObject = {
         displayName,
         email,
         createdDate: timestamp,
+        phone,
         ...additionalData
-      });
+      } 
+    } else {
+        userObject = {
+          displayName,
+          email,
+          createdDate: timestamp,
+          ...additionalData
+        }
+    }
+
+    try {
+      await userRef.set(userObject);
     } catch(err) {
       console.error(err);
     }
