@@ -20,6 +20,15 @@
             text-transform: uppercase;
         }
 
+        ul {
+            border-left: 2rem solid red;
+            background-color: rgb(255, 93, 93); 
+            padding: 10px;
+            color: white;
+            font-weight: 200;
+            font-size: small;
+        }
+
         .formWrap {
             margin: 3rem auto 2rem;
         }
