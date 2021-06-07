@@ -22,7 +22,7 @@ const EmailPassword = props => {
 
             await auth.sendPasswordResetEmail(email, config)
                 .then(() => {
-                    setResponse(['If the email matches our records, check your email for reset instructions. You will redirected shortly.']);
+                    setResponse(['If the email matches our records, check your email for reset instructions. You will be redirected shortly.']);
                     setTimeout(() => props.history.push('/login'), 2000);
                 })
                 .catch(() => {

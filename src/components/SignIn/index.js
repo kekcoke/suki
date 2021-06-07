@@ -41,6 +41,7 @@ const SignIn = props => {
                         value={email}
                         placeholder="Email"
                         handleChange={e => setEmail(e.target.value)}
+                        required
                     />
                     <FormInput
                         type="password"
@@ -48,6 +49,7 @@ const SignIn = props => {
                         value={password}
                         placeholder="Password"
                         handleChange={e => setPassword(e.target.value)}
+                        required
                     />
                     <Button type="submit">
                         Login

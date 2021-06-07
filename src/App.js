@@ -25,15 +25,15 @@ class App extends Component {
 
     this.authListener = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
-        const userRef = await handleUserProfile(userAuth);
-        userRef.onSnapshot(snapshot => {
-          setCurrentUser({
-            id: snapshot.id,
-            ...snapshot.data()
+          const userRef = await handleUserProfile(userAuth);
+          userRef.onSnapshot(snapshot => {
+            setCurrentUser({
+              id: snapshot.id,
+              ...snapshot.data()
+            });
           });
-        });
       }
-
+      
       setCurrentUser(userAuth);
     });
   }
@@ -53,7 +53,7 @@ class App extends Component {
               <Homepage />
             </HomepageLayout>
           )} />
-          <Route path="/signup" render={() => (
+          <Route path="/signup" render={() => currentUser ? <Redirect to="/" /> : (
             <MainLayout>
               <Signup />
             </MainLayout>
