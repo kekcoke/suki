@@ -54,13 +54,12 @@ const App = props => {
             <Homepage />
           </HomepageLayout>
         )} />
-        <Route path="/signup" render={() => currentUser ? <Redirect to="/" /> : (
+        <Route path="/signup" render={() => (
           <MainLayout>
             <Signup />
           </MainLayout>
         )} />
-        <Route path="/login"
-          render={() => currentUser ? <Redirect to="/" /> : (
+        <Route path="/login" render={() => (
             <MainLayout>
               <Login />
             </MainLayout>

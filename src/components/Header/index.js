@@ -20,7 +20,7 @@ const Header = props => {
                         <ul>
                             <li>
                                 <Link to="/dashboard">
-                                    Dashboard
+                                    My Account
                                 </Link>
                             </li>
                             <li>
@@ -33,11 +33,6 @@ const Header = props => {
 
                     {!currentUser && (
                         <ul>
-                            <li>
-                                <Link to="/dashboard">
-                                    Dashboard
-                                </Link>
-                            </li>
                             <li>
                                 <Link to="/signup">
                                     Signup
