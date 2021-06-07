@@ -76,7 +76,7 @@ class SignIn extends Component {
                                     </Button>
                             </div>
                         </div>
-                        <div class="links">
+                        <div className="links">
                             <Link to="/recovery">
                                 Reset Password
                             </Link>
