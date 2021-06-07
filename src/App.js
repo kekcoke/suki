@@ -4,6 +4,9 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { auth, handleUserProfile } from './firebase/utils';
 import { setCurrentUser } from './redux/User/user.actions';
 
+//hoc
+import WithAuth from './hoc/withAuth';
+
 // layouts 
 import MainLayout from './layouts/MainLayout';
 import HomepageLayout from './layouts/HomepageLayout';
@@ -13,6 +16,7 @@ import Homepage from './pages/Homepage';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Recovery from './pages/Recovery';
+import Dashboard from './pages/Dashboard';
 
 // global styles
 import './default.scss';
@@ -65,7 +69,14 @@ const App = props => {
           <MainLayout>
             <Recovery />
           </MainLayout>
-        )} />
+          )} />
+        <Route path="/dashboard" render={() => (
+          <WithAuth>
+            <MainLayout>
+              <Dashboard />
+            </MainLayout>
+          </WithAuth>
+          )} />
       </Switch>
     </div>
   );
