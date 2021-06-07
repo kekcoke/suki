@@ -21,18 +21,20 @@ class App extends Component {
   authListener = null;
 
   componentDidMount() {
+    const { setCurrentUser } = this.props;
+
     this.authListener = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot(snapshot => {
-          this.props.setCurrentUser({
+          setCurrentUser({
             id: snapshot.id,
             ...snapshot.data()
           });
         });
       }
 
-      this.props.setCurrentUser(userAuth);
+      setCurrentUser(userAuth);
     });
   }
 
@@ -41,7 +43,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser } = this.state;
+    const { currentUser } = this.props;
 
     return (
       <div className="App">
