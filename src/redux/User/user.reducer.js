@@ -11,6 +11,12 @@ const userReducer = (state=INITIAL_STATE, action) => {
                 ...state,
                 currentUser: action.payload
             }
+        case userTypes.SIGN_IN_SUCCESS: {
+            return {
+                ...state,
+                signInSuccess: action.payload
+            }
+        }
         default: return state;
     }
 };
