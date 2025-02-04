@@ -1,36 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import './styles.scss';
 
+import { resetPassword } from '../../redux/User/user.actions';
 import AuthWrapper from './../AuthWrapper';
-import FormInput from './../Forms/FormInput';
 import Button from './../Forms/Button';
+import FormInput from './../Forms/FormInput';
 
-import { auth } from './../../firebase/utils';
+const mapState = ({ user }) => ({
+    resetPasswordSuccess: user.resetPasswordSuccess,
+    resetPasswordError: user.resetPasswordError
+});
 
 const EmailPassword = props => {
+    const { resetPasswordSuccess, resetPasswordError } = useSelector(mapState);
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [response, setResponse] = useState([]);
 
+    useEffect(() => {
+        if (resetPasswordSuccess) {
+            props.history.push('/login')
+        }
+    }, [resetPasswordSuccess]);
+
+    useEffect(() => { 
+        if (Array.isArray(resetPasswordError) && resetPasswordError.length > 0) {
+            setResponse(resetPasswordError);
+        }
+    }, [resetPasswordError]);
+
     const handleSubmit = async e => {
         e.preventDefault();
-
-        try {
-            const config = {
-                url: 'http://localhost:3000/login'
-            };
-
-            await auth.sendPasswordResetEmail(email, config)
-                .then(() => {
-                    setResponse(['If the email matches our records, check your email for reset instructions. You will be redirected shortly.']);
-                    setTimeout(() => props.history.push('/login'), 2000);
-                })
-                .catch(() => {
-                    setResponse(['Oops. Something went wrong. Contact us if the issue persists.']);
-                });
-        } catch (err) {
-            console.error(err);
-        }
+        dispatch(resetPassword({ email }));
     }
 
     const configAuthWrapper = {
