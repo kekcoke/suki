@@ -6,6 +6,10 @@ export const setCurrentUser = user => ({
     payload: user
 });
 
+export const resetAllAuthForms = () => ({
+    type: userTypes.RESET_AUTH_FORMS
+});
+
 export const signInUser = ({ email, password }) => async dispatch => {
     try {
         await auth.signInWithEmailAndPassword(email, password);
@@ -84,14 +88,14 @@ export const signInWithGoogle = () => async dispatch => {
     try 
     {
         await auth.signInWithPopup(GoogleProvider)
-        .then(() => { 
-            dispatch({
-                type: userTypes.SIGN_UP_SUCCESS,
-                payload: true
+            .then(() => { 
+                dispatch({
+                    type: userTypes.SIGN_UP_SUCCESS,
+                    payload: true
+                });
+            })
+            .catch(() => {
             });
-        })
-        .catch(() => {
-        });
 
     } catch (e)
     {

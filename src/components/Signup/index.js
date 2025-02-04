@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import './styles.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { signUpUser } from './../../redux/User/user.actions';
+import { resetAllAuthForms, signUpUser } from './../../redux/User/user.actions';
 import AuthWrapper from './../AuthWrapper';
 import Button from './../Forms/Button';
 import FormInput from './../Forms/FormInput';
@@ -26,6 +26,7 @@ const SignupComponent = props => {
     useEffect(() => {
         if (signUpSuccess) {
             resetForm();
+            dispatch(resetAllAuthForms());
             props.history.push('/');
         }
     }, [signUpSuccess]);

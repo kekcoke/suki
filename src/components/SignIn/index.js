@@ -6,7 +6,7 @@ import './styles.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { signInUser, signInWithGoogle } from '../../redux/User/user.actions';
+import { resetAllAuthForms, signInUser, signInWithGoogle } from '../../redux/User/user.actions';
 
 const mapState = ({ user }) => ({ 
     signInSuccess: user.signInSuccess    
@@ -21,6 +21,7 @@ const SignIn = props => {
     useEffect(() => {
         if (signInSuccess) {
             resetForm();
+            dispatch(resetAllAuthForms());
             props.history.push('/');
         }
     
