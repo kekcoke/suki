@@ -6,8 +6,7 @@ import './styles.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { signInUser } from '../../redux/User/user.actions';
-import { signInWithGoogle } from './../../firebase/utils';
+import { signInUser, signInWithGoogle } from '../../redux/User/user.actions';
 
 const mapState = ({ user }) => ({ 
     signInSuccess: user.signInSuccess    
@@ -40,6 +39,10 @@ const SignIn = props => {
         // props.history.push('/');
     }
 
+    const handleGoogleSignIn = () => {
+        dispatch(signInWithGoogle());
+    }
+
     const configAuthWrapper = {
         headline: 'Login'
     }; 
@@ -69,7 +72,7 @@ const SignIn = props => {
                     </Button>
                     <div className="socialSignIn">
                         <div className="row">
-                            <Button onClick={signInWithGoogle}>
+                            <Button onClick={handleGoogleSignIn}>
                                 Sign in with Google
                                     </Button>
                         </div>

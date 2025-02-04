@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { auth, handleUserProfile } from './firebase/utils';
+import { setCurrentUser } from './redux/User/user.actions';
 
 //hoc
 import WithAuth from './hoc/withAuth';
@@ -21,7 +23,6 @@ import './default.scss';
 
 const App = props => {
   const dispatch = useDispatch();
-  const { setCurrentUser } = props;
 
   useEffect(() => {
     // akin inside in componentDidMount
