@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { auth, handleUserProfile } from './firebase/utils';
-import { setCurrentUser } from './redux/User/user.actions';
 
 //hoc
 import WithAuth from './hoc/withAuth';
@@ -24,27 +22,27 @@ import './default.scss';
 const App = props => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  // useEffect(() => {
     // akin inside in componentDidMount
-    const authListener = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-          const userRef = await handleUserProfile(userAuth);
-          userRef.onSnapshot(snapshot => {
-            dispatch(setCurrentUser({
-              id: snapshot.id,
-              ...snapshot.data()
-            }));
-          });
-      }
+    // const authListener = auth.onAuthStateChanged(async userAuth => {
+    //   if (userAuth) {
+    //       const userRef = await handleUserProfile(userAuth);
+    //       userRef.onSnapshot(snapshot => {
+    //         dispatch(setCurrentUser({
+    //           id: snapshot.id,
+    //           ...snapshot.data()
+    //         }));
+    //       });
+    //   }
       
-      dispatch(setCurrentUser(userAuth));
-    });
+    //   dispatch(setCurrentUser(userAuth));
+    // });
 
-    return () => {
-      // unsubscribe to event listener, akin inside in componentWillUnmount
-      authListener();
-    }
-  }, []);
+  //   return () => {
+  //     // unsubscribe to event listener, akin inside in componentWillUnmount
+  //     authListener();
+  //   }
+  // }, []);
 
   return (
     <div className="App">

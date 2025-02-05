@@ -5,6 +5,12 @@ export const emailSignInStart = userCredentials => ({
     type: userTypes.EMAIL_SIGN_IN_START,
     payload: userCredentials
 });
+
+export const signInSuccess = user => ({
+    type: userTypes.SIGN_IN_SUCCESS,
+    payload: user
+});
+
 export const setCurrentUser = user => ({
     type: userTypes.SET_CURRENT_USER,
     payload: user
@@ -15,16 +21,16 @@ export const resetAllAuthForms = () => ({
 });
 
 export const signInUser = ({ email, password }) => async dispatch => {
-    try {
-        await auth.signInWithEmailAndPassword(email, password);
-        dispatch({
-            type: userTypes.SIGN_IN_SUCCESS,
-            payload: true
-        });
+    // try {
+    //     await auth.signInWithEmailAndPassword(email, password);
+    //     dispatch({
+    //         type: userTypes.SIGN_IN_SUCCESS,
+    //         payload: true
+    //     });
 
-    } catch (e) {
-        // console.error(e);
-    }
+    // } catch (e) {
+    //     // console.error(e);
+    // }
 };
 
 export const signUpUser = ({ displayName, email, password, confirmPassword }) => async dispatch => {
