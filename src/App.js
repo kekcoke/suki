@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import { checkUserSession } from './redux/User/user.actions';
 
 //hoc
 import WithAuth from './hoc/withAuth';
@@ -22,27 +23,9 @@ import './default.scss';
 const App = props => {
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-    // akin inside in componentDidMount
-    // const authListener = auth.onAuthStateChanged(async userAuth => {
-    //   if (userAuth) {
-    //       const userRef = await handleUserProfile(userAuth);
-    //       userRef.onSnapshot(snapshot => {
-    //         dispatch(setCurrentUser({
-    //           id: snapshot.id,
-    //           ...snapshot.data()
-    //         }));
-    //       });
-    //   }
-      
-    //   dispatch(setCurrentUser(userAuth));
-    // });
-
-  //   return () => {
-  //     // unsubscribe to event listener, akin inside in componentWillUnmount
-  //     authListener();
-  //   }
-  // }, []);
+  useEffect(() => {
+    dispatch(checkUserSession());
+  }, []);
 
   return (
     <div className="App">
