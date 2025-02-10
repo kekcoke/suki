@@ -6,7 +6,7 @@ import './styles.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { signInUser, signInWithGoogle } from '../../redux/User/user.actions';
+import { emailSignInStart, signInWithGoogle } from '../../redux/User/user.actions';
 
 const mapState = ({ user }) => ({ 
     currentUser: user.currentUser    
@@ -33,10 +33,7 @@ const SignIn = props => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        dispatch(signInUser({ email, password }));
-
-        // resetForm();
-        // props.history.push('/');
+        dispatch(emailSignInStart({ email, password }));
     }
 
     const handleGoogleSignIn = () => {

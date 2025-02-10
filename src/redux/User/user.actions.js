@@ -24,7 +24,7 @@ export const resetAllAuthForms = () => ({
     type: userTypes.RESET_AUTH_FORMS
 });
 
-export const signInUser = ({ email, password }) => async dispatch => {
+// export const signInUser = ({ email, password }) => async dispatch => {
     // try {
     //     await auth.signInWithEmailAndPassword(email, password);
     //     dispatch({
@@ -35,7 +35,7 @@ export const signInUser = ({ email, password }) => async dispatch => {
     // } catch (e) {
     //     // console.error(e);
     // }
-};
+// };
 
 export const signUpUser = ({ displayName, email, password, confirmPassword }) => async dispatch => {
     const checkPasswordStrength = (password, confirmPassword) => {
