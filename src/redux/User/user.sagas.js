@@ -1,11 +1,11 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { auth, getCurrentUser, handleUserProfile } from "../../firebase/utils";
-import { signInSuccess, signOutUserSuccess } from "./user.actions";
+import { signInSuccess, signOutUserSuccess, userError } from "./user.actions";
 import userTypes from "./user.types";
 
-export function* getSnapshotFromUserAuth(user) {
+export function* getSnapshotFromUserAuth(user, additionalData = {}) {
     try {
-        const userRef = yield call(handleUserProfile, { userAuth: user });
+        const userRef = yield call(handleUserProfile, { userAuth: user, additionalData });
         const snapshot = yield userRef.get();
 
         yield put(
@@ -52,7 +52,10 @@ export function* onCheckUserSession() {
 export function* signOutUser() {
     try {
         yield auth.signOut();
-        yield(put(signOutUserSuccess));
+        yield(
+            put(
+                signOutUserSuccess)
+            )
     } catch (e) {
         // console.error(e);
     }
@@ -62,6 +65,42 @@ export function* onSignOutUserStart() {
     yield takeLatest(userTypes.SIGN_OUT_USER_START, signOutUser);
 }
 
+export function* signUpUser({ payload: { 
+    displayName, 
+    email, 
+    password, 
+    confirmPassword 
+} }) {
+
+    if (password !== confirmPassword) {
+        const err = ['Passwords don\'t match'];
+        yield put(
+            userError(err)
+        );
+
+        return;
+    }
+
+    try {
+        const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+        const additionalData = { displayName };
+        // const userRef = yield call(handleUserProfile, { userAuth: user, additionalData: { displayName } });
+        
+        yield getSnapshotFromUserAuth(user, additionalData);
+    } catch (e) {
+        // console.error(e);
+    }
+}
+
+export function* signUpUserStart() {
+    yield takeLatest(userTypes.SIGN_UP_USER_START, signUpUser);
+}
+
 export default function* userSagas() {
-    yield all([call(onEmailSignInStart), call(onCheckUserSession)]);
+    yield all([
+        call(onEmailSignInStart), 
+        call(onCheckUserSession),
+        call(onSignOutUserStart),
+        call(signUpUserStart)
+    ]);
 }

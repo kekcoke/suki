@@ -11,4 +11,5 @@ export const middlewares = [thunk, sagaMiddleware, logger];
 
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 sagaMiddleware.run(rootSaga);
+
 export default store;
