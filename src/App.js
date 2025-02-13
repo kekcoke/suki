@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { checkUserSession } from './redux/User/user.actions';
 
 //hoc
+import WithAdminAuth from './hoc/withAdminAuth';
 import WithAuth from './hoc/withAuth';
 
 // layouts 
@@ -59,9 +60,11 @@ const App = props => {
           </WithAuth>
           )} />
           <Route path="/admin" render={() => (
-            <MainLayout>
-              <Admin />
-            </MainLayout>
+            <WithAdminAuth>
+              <MainLayout>
+                <Admin />
+              </MainLayout>
+            </WithAdminAuth>
           )} />
       </Switch>
     </div>
