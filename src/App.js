@@ -11,6 +11,7 @@ import HomepageLayout from './layouts/HomepageLayout';
 import MainLayout from './layouts/MainLayout';
 
 // pages
+import Admin from './pages/Admin';
 import Dashboard from './pages/Dashboard';
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
@@ -56,6 +57,11 @@ const App = props => {
               <Dashboard />
             </MainLayout>
           </WithAuth>
+          )} />
+          <Route path="/admin" render={() => (
+            <MainLayout>
+              <Admin />
+            </MainLayout>
           )} />
       </Switch>
     </div>
