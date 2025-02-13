@@ -1,5 +1,4 @@
 import { useAuth } from './../customHooks';
-import { withRouter } from 'react-router-dom';
 
 /**
  * Higher-order component, calls custom hook returning user object / other state from the redux store.
@@ -8,4 +7,4 @@ import { withRouter } from 'react-router-dom';
  */
 const WithAuth = props => useAuth(props) && props.children;
 
-export default withRouter(WithAuth);
+export default WithAuth;
