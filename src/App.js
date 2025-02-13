@@ -3,7 +3,11 @@ import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { checkUserSession } from './redux/User/user.actions';
 
+// components
+import AdminToolbar from './components/AdminToolbar';
+
 //hoc
+import WithAdminAuth from './hoc/withAdminAuth';
 import WithAuth from './hoc/withAuth';
 
 // layouts 
@@ -11,6 +15,7 @@ import HomepageLayout from './layouts/HomepageLayout';
 import MainLayout from './layouts/MainLayout';
 
 // pages
+import Admin from './pages/Admin';
 import Dashboard from './pages/Dashboard';
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
@@ -25,10 +30,11 @@ const App = props => {
 
   useEffect(() => {
     dispatch(checkUserSession());
-  });
+  }, []);
 
   return (
     <div className="App">
+      <AdminToolbar />
       <Switch>
         <Route exact path="/" render={() => (
           <HomepageLayout>
@@ -56,6 +62,13 @@ const App = props => {
               <Dashboard />
             </MainLayout>
           </WithAuth>
+          )} />
+          <Route path="/admin" render={() => (
+            <WithAdminAuth>
+              <MainLayout>
+                <Admin />
+              </MainLayout>
+            </WithAdminAuth>
           )} />
       </Switch>
     </div>

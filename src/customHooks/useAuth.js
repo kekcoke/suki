@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 /**
  * Map state. Returns user object. 
  * @param {*} param  User object
@@ -17,11 +19,12 @@ const mapState = ({ user }) => ({
  */
 const useAuth = props => {
     const { currentUser } = useSelector(mapState);
+    const history = useHistory();
 
     useEffect(() => {
         // state changes and is not logged in, redirect provided with hoc's router history, wrapped in withRouter
         if (!currentUser) {
-            props.history.push('/login');
+            history.push('/login');
         }
     }, [currentUser]);
     return currentUser;
