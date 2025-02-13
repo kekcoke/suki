@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import './styles.scss';
 
 import { useSelector } from 'react-redux';
-import { signUpUserStart } from '../../redux/User/user.sagas';
+import { signUpUserStart } from './../../redux/User/user.actions';
 import AuthWrapper from './../AuthWrapper';
 import Button from './../Forms/Button';
 import FormInput from './../Forms/FormInput';
