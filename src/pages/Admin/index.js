@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { productCategories } from '../../redux/Products/products.categories';
+import { productCategoriesList } from '../../redux/Products/products.categories';
+import { productStatusList } from '../../redux/Products/products.status';
 import Button from './../../components/Forms/Button';
 import FormInput from './../../components/Forms/FormInput';
 import FormSelect from './../../components/Forms/FormSelect';
@@ -10,10 +11,20 @@ import './styles.scss';
 const Admin = props => {
   const [products, setProducts] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [productCategory, setProductCategory] = useState('');
   const [productName, setProductName] = useState('');
+  const [productBrandName, setProductBrandName] = useState("");
+  const [productCategory, setProductCategory] = useState('');
+  const [productSubCategory, setProductSubCategory] = useState("");
+  const [productGender, setProductGender] = useState("");
+  const [productStatus, setProductStatus] = useState("");
+  const [productStock, setProductStock] = useState(0);
+  const [productBundle, setProductBundle] = useState(false);
   const [productThumbnail, setProductThumbnail] = useState('');
   const [productPrice, setProductPrice] = useState(0);
+  const [productDescription, setProductDescription] = useState("");
+  const [productFeatures, setProductFeatures] = useState([]);
+  const [productSpecifications, setProductSpecifications] = useState([]);
+
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -30,10 +41,18 @@ const Admin = props => {
     e.preventDefault();
 
     firestore.collection('products').doc().set({
-      productCategory,
       productName,
+      productBrandName,
+      productCategory,
+      productSubCategory,
+      productGender,
+      productStock,
+      productBundle,
       productThumbnail,
-      productPrice
+      productPrice,
+      productDescription,
+      productFeatures,
+      productSpecifications
     }).then(e => {
       // Success
     });
@@ -61,17 +80,71 @@ const Admin = props => {
               Add new product
             </h2>
 
-            <FormSelect
-              label="Category"
-              options={productCategories}
-              handleChange={e => setProductCategory(e.target.value)}
-            />
-
             <FormInput
               label="Name"
               type="text"
               value={productName}
               handleChange={e => setProductName(e.target.value)}
+            />
+
+            <FormInput
+              label="Brand"
+              type="text"
+              value={productBrandName}
+              handleChange={e => setProductBrandName(e.target.value)}
+            />
+
+            <FormSelect
+              label="Category"
+              options={productCategoriesList}
+              handleChange={e => setProductCategory(e.target.value)}
+            />
+
+            <FormInput
+              label="Sub-category"
+              type="text"
+              value={productSubCategory}
+              handleChange={e => setProductSubCategory(e.target.value)}
+            />
+
+            <FormSelect
+              label="Gender"
+              options={productGender}
+              handleChange={e => setProductGender(e.target.value)}
+            />
+
+            <FormSelect
+              label="Product Status"
+              options={productStatusList}
+              handleChange={e => setProductStatus(e.target.value)}
+            />
+
+            <FormInput
+              label="Number Stock available"
+              type="number"
+              value={productStock}
+              handleChange={e => setProductStock(e.target.value)}
+            />
+
+            <FormInput
+              label="Description"
+              type="text"
+              value={productDescription}
+              handleChange={e => setProductDescription(e.target.value)}
+            />
+
+            <FormInput
+              label="Features (ex: 100% cotton, easy to wash)"
+              type="text"
+              value={productFeatures}
+              handleChange={e => setProductFeatures(e.target.value)}
+            />
+
+            <FormInput
+              label="Specifications (ex: ISO-9001,MIL-STD-810G)"
+              type="text"
+              value={productSpecifications}
+              handleChange={e => setProductSpecifications(e.target.value)}
             />
 
             <FormInput

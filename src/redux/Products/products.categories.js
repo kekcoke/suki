@@ -1,4 +1,4 @@
-export const productCategories = [
+export const productCategoriesList = [
         {name:"Clothing, Shoes & Jewelry",value:236346 },
         {name:"Home & Kitchen",value:142662 },
         {name:"Sports & Outdoors",value:60114 },
