@@ -8,18 +8,14 @@ import './styles.scss';
 
 const Admin = props => {
   const [products, setProducts] = useState([]);
-  const [hideModal, setHideModal] = useState(true);
+  const [isModalOpen, setModalOpen] = useState(false);
   const [productCategory, setProductCategory] = useState('mens');
   const [productName, setProductName] = useState('');
   const [productThumbnail, setProductThumbnail] = useState('');
   const [productPrice, setProductPrice] = useState(0);
 
-  const toggleModal = truthy => setHideModal(truthy);
-
-  const configModal = {
-    hideModal,
-    toggleModal
-  };
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   useEffect(() => {
     firestore.collection('products').get().then(snapshot => {
@@ -49,14 +45,14 @@ const Admin = props => {
       <div className="callToActions">
         <ul>
           <li>
-            <Button onClick={() => toggleModal()}>
+            <Button onClick={openModal}>
               Add new product
             </Button>
           </li>
         </ul>
       </div>
 
-      <Modal {...configModal}>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div className="addNewProductForm">
           <form onSubmit={handleSubmit}>
 

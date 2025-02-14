@@ -1,12 +1,12 @@
 import React from 'react';
 import './styles.scss';
 
-const Modal = ({ hideModal, toggleModal, children }) => {
-    if (hideModal) return null;
+const Modal = ({ isOpen, onClose, children }) => {
+    if (!isOpen) return null;
     
     return (
         <>
-            <div className="modalOverlay" onClick={toggleModal()}/>
+            <div className="modalOverlay" onClick={onClose}/>
             <div className="modal">
                 {children}
             </div>
