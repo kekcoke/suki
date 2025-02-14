@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { productCategories } from '../../redux/Products/products.categories';
 import Button from './../../components/Forms/Button';
 import FormInput from './../../components/Forms/FormInput';
 import FormSelect from './../../components/Forms/FormSelect';
@@ -9,14 +10,14 @@ import './styles.scss';
 const Admin = props => {
   const [products, setProducts] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [productCategory, setProductCategory] = useState('mens');
+  const [productCategory, setProductCategory] = useState('');
   const [productName, setProductName] = useState('');
   const [productThumbnail, setProductThumbnail] = useState('');
   const [productPrice, setProductPrice] = useState(0);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
-
+  
   useEffect(() => {
     firestore.collection('products').get().then(snapshot => {
       const snapshotData = snapshot.docs.map(doc => doc.data());
@@ -62,13 +63,7 @@ const Admin = props => {
 
             <FormSelect
               label="Category"
-              options={[{
-                value: "mens",
-                name: "Mens"
-              }, {
-                value: "womens",
-                name: "Womens"
-              }]}
+              options={productCategories}
               handleChange={e => setProductCategory(e.target.value)}
             />
 
