@@ -8,7 +8,7 @@ const mapState = ({ user }) => ({
 });
 
 const useAdminAuth = props => {
-    const currentUser = useSelector(mapState);
+    const { currentUser } = useSelector(mapState);
     const history = useHistory();
 
     useEffect(() => {
