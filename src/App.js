@@ -11,6 +11,8 @@ import WithAdminAuth from './hoc/withAdminAuth';
 import WithAuth from './hoc/withAuth';
 
 // layouts 
+import AdminLayout from './layouts/AdminLayout';
+import DashboardLayout from './layouts/DashboardLayout';
 import HomepageLayout from './layouts/HomepageLayout';
 import MainLayout from './layouts/MainLayout';
 
@@ -58,16 +60,16 @@ const App = props => {
           )} />
         <Route path="/dashboard" render={() => (
           <WithAuth>
-            <MainLayout>
+            <DashboardLayout>
               <Dashboard />
-            </MainLayout>
+            </DashboardLayout>
           </WithAuth>
           )} />
           <Route path="/admin" render={() => (
             <WithAdminAuth>
-              <MainLayout>
+              <AdminLayout>
                 <Admin />
-              </MainLayout>
+              </AdminLayout>
             </WithAdminAuth>
           )} />
       </Switch>
