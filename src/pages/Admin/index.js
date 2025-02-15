@@ -47,6 +47,7 @@ const Admin = props => {
       productCategory,
       productSubCategory,
       productGender,
+      productStatus,
       productStock,
       productBundle,
       productThumbnail,
