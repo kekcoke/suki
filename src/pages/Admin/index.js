@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { productCategoriesList } from '../../redux/Products/products.categories';
+import productsGenderList from '../../redux/Products/products.gender';
 import { productStatusList } from '../../redux/Products/products.status';
 import Button from './../../components/Forms/Button';
 import FormInput from './../../components/Forms/FormInput';
@@ -109,7 +110,7 @@ const Admin = props => {
 
             <FormSelect
               label="Gender"
-              options={productGender}
+              options={productsGenderList}
               handleChange={e => setProductGender(e.target.value)}
             />
 
