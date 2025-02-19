@@ -7,7 +7,7 @@ export const handleAddProduct = product => {
         firestore
             .collection(PRODUCTS)
             .doc()
-            .set(product)
+            .set({...product})
             .then(() => resolve())
             .catch(e => reject(e));
     
