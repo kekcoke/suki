@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProductStart, fetchProductsStart } from '../../redux/Products/products.actions';
+import { addProductStart, deleteProductStart, fetchProductsStart } from '../../redux/Products/products.actions';
 import { productCategoriesList } from '../../redux/Products/products.categories';
 import productsGenderList from '../../redux/Products/products.gender';
 import { productStatusList } from '../../redux/Products/products.status';
@@ -38,7 +38,7 @@ const Admin = props => {
   
   useEffect(() => {
     dispatch(
-      fetchProductsStart(null)
+      fetchProductsStart()
     )
   }, []);
 
@@ -228,10 +228,12 @@ const Admin = props => {
                             {productName}
                           </td>
                           <td>
-                            £{productPrice}
+                            {productPrice}
                           </td>
                           <td>
-                            {/* delete */}
+                            <Button onClick={ () => dispatch(deleteProductStart(documentID))}>
+                              Delete
+                            </Button>
                           </td>
                         </tr>
                       )

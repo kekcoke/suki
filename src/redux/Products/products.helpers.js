@@ -30,3 +30,17 @@ export const handleFetchProducts = tindaId => {
             .catch(e => reject(e));
     });
 }
+
+export const handleDeleteProduct = documentID => {
+    return new Promise((resolve, reject) => {
+        firestore
+            .collection(PRODUCTS)
+            .doc(documentID)
+            .delete()
+            .then(() => {
+                console.log(`Product ${documentID} deleted`);
+                resolve();
+            })
+            .catch(e => console.error(e));
+    })
+}
