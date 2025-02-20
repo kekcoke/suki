@@ -27,8 +27,26 @@ const ProductResults = ({}) => {
     }
 
     return (
-        <div>
-            ProductResults
+        <div className="products">
+            <h1>Products</h1>
+
+            <div className="productResults">
+                {products.map((product, pos) => {
+                    const { productThumbnail, productName, productPrice } = product;
+
+                    if (!productThumbnail || !productName || typeof productPrice === "undefined") return null;
+
+                    const configProduct = {
+                        productThumbnail,
+                        productName,
+                        productPrice
+                    };
+
+                    return (
+                        <Product {...configProduct} key={pos} />
+                    );
+                })}
+            </div>
         </div>
     )
 }
