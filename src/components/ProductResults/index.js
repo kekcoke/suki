@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchProductsStart } from "../../redux/Products/products.actions";
+import Product from "./Product";
 import './styles.scss';
 
 const mapState = ({ productsData }) => ({
