@@ -14,14 +14,18 @@ export const handleAddProduct = product => {
     })
 };
 
-export const handleFetchProducts = tindaId => {
+export const handleFetchProducts = ({ filterType }) => {
     return new Promise((resolve, reject) => {
-        firestore
-            .collection(PRODUCTS)
-            .orderBy('createdDate')
+    
+        let ref = firestore.collection('products').orderBy('createdDate');
+
+        if (filterType) ref = ref.where('productStatus', '==', filterType);
+    
+        ref
             .get()
             .then(snapshot => {
-                const productsArray = snapshot.docs.map(doc => {                        return {
+                const productsArray = snapshot.docs.map(doc => {                        
+                        return {
                             ...doc.data(),
                             documentID: doc.id
                         }

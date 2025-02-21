@@ -52,9 +52,9 @@ export function* onAddProductStart() {
     yield takeLatest(productTypes.ADD_NEW_PRODUCT_START, addProduct);
 }
 
-export function* fetchProducts(tindaId) {
+export function* fetchProducts({ payload : { filterType } }) {
     try {
-        const products = yield handleFetchProducts(tindaId);
+        const products = yield handleFetchProducts({ filterType });
         yield put(
             setProducts(products)
         );
