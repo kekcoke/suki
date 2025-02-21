@@ -44,7 +44,7 @@ const App = props => {
             <Homepage />
           </HomepageLayout>
         )} />
-        <Route path="/search" render={() => (
+        <Route exact path="/search" render={() => (
           <MainLayout>
             <Search />
           </MainLayout>

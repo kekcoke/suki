@@ -8,6 +8,10 @@ const Product = ({
 }) => {
     if (!productThumbnail || !productName || typeof productPrice === "undefined") return null;
 
+    const configAddToCartBtn = {
+        type: 'button'
+    };
+
     return (
         <div className="product">
             <div className="thumb">
@@ -28,7 +32,7 @@ const Product = ({
                     </li>
                     <li>
                         <div className="addToCart">
-                            <Button>
+                            <Button {...configAddToCartBtn}>
                                 Add to cart
                             </Button>
                         </div>
