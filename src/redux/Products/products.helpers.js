@@ -18,6 +18,7 @@ export const handleFetchProducts = tindaId => {
     return new Promise((resolve, reject) => {
         firestore
             .collection(PRODUCTS)
+            .orderBy('createdDate')
             .get()
             .then(snapshot => {
                 const productsArray = snapshot.docs.map(doc => {                        return {

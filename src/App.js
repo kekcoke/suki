@@ -22,6 +22,7 @@ import Dashboard from './pages/Dashboard';
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
 import Recovery from './pages/Recovery';
+import Search from './pages/Search.js';
 import Signup from './pages/Signup';
 
 // global styles
@@ -42,6 +43,11 @@ const App = props => {
           <HomepageLayout>
             <Homepage />
           </HomepageLayout>
+        )} />
+        <Route path="/search" render={() => (
+          <MainLayout>
+            <Search />
+          </MainLayout>
         )} />
         <Route path="/signup" render={() => (
           <MainLayout>
