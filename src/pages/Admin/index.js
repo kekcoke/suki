@@ -96,7 +96,7 @@ const Admin = props => {
   };
 
   const configLoadMore = {
-    onLoadMoreEvt: handleLoadMore,
+    onLoadMoreEvent: handleLoadMore,
   };
 
   return (

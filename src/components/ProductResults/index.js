@@ -68,7 +68,7 @@ const ProductResults = ({}) => {
       };
     
       const configLoadMore = {
-        onLoadMoreEvt: handleLoadMore,
+        onLoadMoreEvent: handleLoadMore,
       };    
 
     return (
