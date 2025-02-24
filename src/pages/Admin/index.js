@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import LoadMore from '../../components/LoadMore';
 import { addProductStart, deleteProductStart, fetchProductsStart } from '../../redux/Products/products.actions';
 import { productCategoriesList } from '../../redux/Products/products.categories';
 import productsGenderList from '../../redux/Products/products.gender';
