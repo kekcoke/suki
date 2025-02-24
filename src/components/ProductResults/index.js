@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { fetchProductsStart } from "../../redux/Products/products.actions";
 import FormSelect from './../../components/Forms/FormSelect';
+import LoadMore from './../LoadMore';
 import Product from "./Product";
 import './styles.scss';
 
@@ -16,6 +17,8 @@ const ProductResults = ({}) => {
     const { filterType } = useParams();
     const { products } = useSelector(mapState);
 
+    const { data, queryDoc, isLastPage } = products;
+
     useEffect(() => {
         dispatch(
             fetchProductsStart({ filterType } )
@@ -27,8 +30,8 @@ const ProductResults = ({}) => {
         history.push(`/search/${nextFilter}`);
     };
 
-    if (!Array.isArray(products)) return null;
-    if (products.length < 1) {
+    if (!Array.isArray(data)) return null;
+    if (data.length < 1) {
         return (
             <div className="products">
                 <p>
@@ -54,13 +57,27 @@ const ProductResults = ({}) => {
         handleChange: handleFilter
     }
 
+    const handleLoadMore = () => {
+        dispatch(
+          fetchProductsStart({
+            filterType,
+            startAfterDoc: queryDoc,
+            persistProducts: data
+          })
+        )
+      };
+    
+      const configLoadMore = {
+        onLoadMoreEvent: handleLoadMore,
+      };    
+
     return (
         <div className="products">
             <h1>Products</h1>
 
             <FormSelect {...configFilters} />
             <div className="productResults">
-                {products.map((product, pos) => {
+                {data.map((product, pos) => {
                     const { productThumbnail, productName, productPrice } = product;
 
                     if (!productThumbnail || !productName || typeof productPrice === "undefined") return null;
@@ -76,6 +93,11 @@ const ProductResults = ({}) => {
                     );
                 })}
             </div>
+
+            {!isLastPage && (
+                <LoadMore {...configLoadMore} />
+            )}
+            
         </div>
     )
 }

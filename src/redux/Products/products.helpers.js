@@ -10,28 +10,41 @@ export const handleAddProduct = product => {
             .set({...product})
             .then(() => resolve())
             .catch(e => reject(e));
-    
+
     })
 };
 
-export const handleFetchProducts = ({ filterType }) => {
+export const handleFetchProducts = ({ filterType, startAfterDoc, persistProducts=[] }) => {
     return new Promise((resolve, reject) => {
-    
-        let ref = firestore.collection('products').orderBy('createdDate');
+
+        const pageSize = 6;
+
+        let ref = firestore.collection('products').orderBy('createdDate').limit(pageSize);
 
         if (filterType) ref = ref.where('productStatus', '==', filterType);
-    
+        if (startAfterDoc) ref = ref.startAfter(startAfterDoc);
+
         ref
             .get()
             .then(snapshot => {
-                const productsArray = snapshot.docs.map(doc => {                        
+                const totalCount = snapshot.size;
+
+                const data = [
+                    ...persistProducts,
+                    ...snapshot.docs.map(doc => {
                         return {
                             ...doc.data(),
                             documentID: doc.id
                         }
-                    });
-                    resolve(productsArray);
-                })
+                    })
+                ];
+
+                resolve({
+                    data,
+                    queryDoc: snapshot.docs[totalCount - 1],
+                    isLastPage: totalCount < pageSize
+                });
+            })
             .catch(e => reject(e));
     });
 }
