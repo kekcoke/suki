@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadMore from '../../components/LoadMore';
+import TextEditor from '../../components/TextEditor';
 import { addProductStart, deleteProductStart, fetchProductsStart } from '../../redux/Products/products.actions';
 import { productCategoriesList } from '../../redux/Products/products.categories';
 import productsGenderList from '../../redux/Products/products.gender';
@@ -31,6 +32,7 @@ const Admin = props => {
   const [productPrice, setProductPrice] = useState(0);
   const [productDescription, setProductDescription] = useState("");
   const [productFeatures, setProductFeatures] = useState([]);
+  const [productYear, setProductYear] = useState("");
   const [productSpecifications, setProductSpecifications] = useState([]);
 
 
@@ -38,7 +40,7 @@ const Admin = props => {
   const closeModal = () => setModalOpen(false);
 
   const { data, queryDoc, isLastPage } = products;
-  
+
   useEffect(() => {
     dispatch(
       fetchProductsStart()
@@ -59,6 +61,7 @@ const Admin = props => {
     setProductPrice(0);
     setProductDescription("");
     setProductFeatures("");
+    setProductYear("");
     setProductSpecifications("");
   };
 
@@ -97,6 +100,10 @@ const Admin = props => {
 
   const configLoadMore = {
     onLoadMoreEvent: handleLoadMore,
+  };
+
+  const handleEditorChange = updatedContent => {
+    setProductDescription(updatedContent);
   };
 
   return (
@@ -167,17 +174,17 @@ const Admin = props => {
             />
 
             <FormInput
-              label="Description"
-              type="text"
-              value={productDescription}
-              handleChange={e => setProductDescription(e.target.value)}
-            />
-
-            <FormInput
               label="Features (ex: 100% cotton, easy to wash)"
               type="text"
               value={productFeatures}
               handleChange={e => setProductFeatures(e.target.value)}
+            />
+
+            <FormInput
+              label="Year"
+              type="text"
+              value={productYear}
+              handleChange={e => setProductYear(e.target.value)}
             />
 
             <FormInput
@@ -203,6 +210,12 @@ const Admin = props => {
               value={productPrice}
               handleChange={e => setProductPrice(e.target.value)}
             />
+
+            <TextEditor content={productDescription}
+                        onChange={handleEditorChange}
+                        placeholder="Type in the details; have it stand out!"
+            />
+            <br />
 
             <Button type="submit">
               Add product
