@@ -62,3 +62,21 @@ export const handleDeleteProduct = documentID => {
             .catch(e => console.error(e));
     })
 }
+
+export const handleFetchProduct = productID => {
+    return new Promise((resolve, reject) => {
+        firestore
+            .collection(PRODUCTS)
+            .doc(productID)
+            .get()
+            .then(snapshot => {
+                if (snapshot.exists) {
+                    resolve({
+                        ...snapshot.data(),
+                        documentID: productID
+                    });
+                }
+            })
+            .catch(e => reject(e));
+    })
+}

@@ -21,6 +21,7 @@ import Admin from './pages/Admin';
 import Dashboard from './pages/Dashboard';
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
+import ProductDetails from './pages/ProductDetails';
 import Recovery from './pages/Recovery';
 import Search from './pages/Search.js';
 import Signup from './pages/Signup';
@@ -52,6 +53,11 @@ const App = props => {
         <Route path="/search/:filterType" render={() => (
           <MainLayout>
             <Search />
+          </MainLayout>
+        )} />
+        <Route path="/product/:productID" render={() => (
+          <MainLayout>
+            <ProductDetails />
           </MainLayout>
         )} />
         <Route path="/signup" render={() => (

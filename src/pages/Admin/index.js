@@ -1,3 +1,4 @@
+import { CKEditor } from 'ckeditor4-react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadMore from '../../components/LoadMore';
@@ -203,6 +204,12 @@ const Admin = props => {
               value={productPrice}
               handleChange={e => setProductPrice(e.target.value)}
             />
+
+            <CKEditor
+              onChange={evt => setProductDescription(evt.editor.getData())}
+            />
+
+            <br />
 
             <Button type="submit">
               Add product
