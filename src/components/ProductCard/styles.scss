@@ -37,6 +37,12 @@
         font-size: 1.6rem;
         text-align: center;
 
+        thead {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 0 2rem;
+        }
+
         tr {
             display: flex;
             justify-content: space-between;

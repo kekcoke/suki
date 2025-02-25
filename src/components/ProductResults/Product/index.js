@@ -15,6 +15,7 @@ const Product = ({
     productThumbnail,
     productPrice,
     productDescription,
+    productYear,
     productFeatures,
     productSpecifications
 }) => {

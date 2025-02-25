@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchProductStart, setProducts } from '../../redux/Products/products.actions';
+import { fetchProductStart, setProduct } from '../../redux/Products/products.actions';
 import Button from '../Forms/Button';
 import './styles.scss';
 
@@ -38,7 +38,7 @@ const ProductCard = ({ }) => {
 
         return () => {
             dispatch(
-                setProducts({})
+                setProduct({})
             );
         }
     }, []);
