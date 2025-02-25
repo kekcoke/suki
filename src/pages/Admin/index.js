@@ -32,6 +32,7 @@ const Admin = props => {
   const [productPrice, setProductPrice] = useState(0);
   const [productDescription, setProductDescription] = useState("");
   const [productFeatures, setProductFeatures] = useState([]);
+  const [productYear, setProductYear] = useState("");
   const [productSpecifications, setProductSpecifications] = useState([]);
 
 
@@ -60,6 +61,7 @@ const Admin = props => {
     setProductPrice(0);
     setProductDescription("");
     setProductFeatures("");
+    setProductYear("");
     setProductSpecifications("");
   };
 
@@ -179,6 +181,13 @@ const Admin = props => {
               type="text"
               value={productFeatures}
               handleChange={e => setProductFeatures(e.target.value)}
+            />
+
+            <FormInput
+              label="Year"
+              type="text"
+              value={productYear}
+              handleChange={e => setProductYear(e.target.value)}
             />
 
             <FormInput

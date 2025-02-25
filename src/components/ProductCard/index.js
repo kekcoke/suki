@@ -27,6 +27,7 @@ const ProductCard = ({ }) => {
         productPrice,
         productDescription,
         productFeatures,
+        productYear,
         productSpecifications 
     } = product;
 
@@ -92,6 +93,10 @@ const ProductCard = ({ }) => {
                         <td>{productStock}</td>
                     </tr>
                     <tr>
+                        <td>Product Year Created</td>
+                        <td>{productYear}</td>
+                    </tr>
+                    <tr>
                         <td>Specifications</td>
                         <td>{productSpecifications}</td>
                     </tr>
@@ -103,12 +108,12 @@ const ProductCard = ({ }) => {
 
             </table>
             <div className='productButtons'>
-                        <Button {...configAddToCardBtn}>
-                            Add to cart
-                        </Button>
-                        <Button {...configAddToWishlistBtn}>
-                            Add to wishlist
-                        </Button>
+                <Button {...configAddToCardBtn}>
+                    Add to cart
+                </Button>
+                <br/>                <Button {...configAddToWishlistBtn}>
+                    Add to wishlist
+                </Button>
             </div>
         </div>
 
