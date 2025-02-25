@@ -29,7 +29,38 @@ export const handleAddToCart = ({
         ...prevCartItems,
         {
             ...nextCartItem,
-            quantityIncrement
+            quantity: quantityIncrement
         }
     ];
 };
+
+export const handleRemoveCartItem = ({
+    cartItems,
+    cartItemToReduce
+}) => cartItems
+    .filter(cardItem => cardItem.documentID !== cartItemToReduce.documentID);
+
+export const handleReduceCartItem = ({
+    cartItems,
+    cartItemToRemove
+}) => {
+    const quantityDecrement = 1;
+    const existingCartItem = cartItems.find(cartItem =>
+        cartItem.documentID === cartItemToRemove.documentID
+    );
+
+    if (existingCartItem.quantity === 1) {
+        return cartItems.filter(cartItem =>
+            cartItem.documentID !== existingCartItem.documentID
+        );
+    }
+
+    return cartItems.map(cardItem =>
+        cardItem.documentID === existingCartItem.documentID ?
+            {
+                ...cardItem,
+                quantity: cardItem.quantity - quantityDecrement
+            } :
+            cardItem
+    );
+}
