@@ -1,7 +1,7 @@
-import { CKEditor } from 'ckeditor4-react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadMore from '../../components/LoadMore';
+import TextEditor from '../../components/TextEditor';
 import { addProductStart, deleteProductStart, fetchProductsStart } from '../../redux/Products/products.actions';
 import { productCategoriesList } from '../../redux/Products/products.categories';
 import productsGenderList from '../../redux/Products/products.gender';
@@ -40,7 +40,7 @@ const Admin = props => {
   const closeModal = () => setModalOpen(false);
 
   const { data, queryDoc, isLastPage } = products;
-  
+
   useEffect(() => {
     dispatch(
       fetchProductsStart()
@@ -100,6 +100,10 @@ const Admin = props => {
 
   const configLoadMore = {
     onLoadMoreEvent: handleLoadMore,
+  };
+
+  const handleEditorChange = updatedContent => {
+    setProductDescription(updatedContent);
   };
 
   return (
@@ -170,13 +174,6 @@ const Admin = props => {
             />
 
             <FormInput
-              label="Description"
-              type="text"
-              value={productDescription}
-              handleChange={e => setProductDescription(e.target.value)}
-            />
-
-            <FormInput
               label="Features (ex: 100% cotton, easy to wash)"
               type="text"
               value={productFeatures}
@@ -214,10 +211,10 @@ const Admin = props => {
               handleChange={e => setProductPrice(e.target.value)}
             />
 
-            <CKEditor
-              onChange={evt => setProductDescription(evt.editor.getData())}
+            <TextEditor content={productDescription}
+                        onChange={handleEditorChange}
+                        placeholder="Type in the details; have it stand out!"
             />
-
             <br />
 
             <Button type="submit">

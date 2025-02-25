@@ -51,7 +51,6 @@ const ProductCard = ({ }) => {
         type: 'button'
     };
 
-
     return (
         <div className='productCard'>
             <div className='hero'>
@@ -111,7 +110,8 @@ const ProductCard = ({ }) => {
                 <Button {...configAddToCardBtn}>
                     Add to cart
                 </Button>
-                <br/>                <Button {...configAddToWishlistBtn}>
+                <br/>
+                <Button {...configAddToWishlistBtn}>
                     Add to wishlist
                 </Button>
             </div>
