@@ -253,7 +253,7 @@ const currenciesList = {
         }
 }
 
-const mapToCurrency = (countryCode) => {
+export const mapToCurrency = (countryCode) => {
     if (!countryCode || countryCode === undefined || currenciesList[countryCode] === undefined)
         return currenciesList["USD"];
 
