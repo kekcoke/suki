@@ -7,5 +7,10 @@ export const addProduct = (nextCartItem) => ({
 
 export const removeCartItem = (cartItem) => ({
     type: cartTypes.REMOVE_CART_ITEM,
-    payload: cartItemID
+    payload: cartItem
+});
+
+export const reduceCartItem = (cartItem) => ({
+    type: cartTypes.REDUCE_CART_ITEM,
+    payload: cartItem
 });

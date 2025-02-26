@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { addProduct } from '../../redux/Cart/cart.actions';
 import { fetchProductStart, setProduct } from '../../redux/Products/products.actions';
 import Button from '../Forms/Button';
 import './styles.scss';
@@ -43,12 +44,19 @@ const ProductCard = ({ }) => {
         }
     }, []);
 
-    const configAddToCardBtn = {
+    const configAddToCartBtn = {
         type: 'button'
     };
 
     const configAddToWishlistBtn = {
         type: 'button'
+    };
+
+    const handleAddToCart = product => {
+        if (!product) return;
+        dispatch(
+            addProduct(product)
+        );
     };
 
     return (
@@ -107,7 +115,7 @@ const ProductCard = ({ }) => {
 
             </table>
             <div className='productButtons'>
-                <Button {...configAddToCardBtn}>
+                <Button {...configAddToCartBtn} onClick={() => handleAddToCart(product)}>
                     Add to cart
                 </Button>
                 <br/>

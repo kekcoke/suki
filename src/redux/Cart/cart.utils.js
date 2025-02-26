@@ -15,23 +15,22 @@ export const handleAddToCart = ({
     const cartItemExists = existingCartItem({ prevCartItems, nextCartItem });
 
     if (cartItemExists) {
-        return prevCartItems.map(cartItem => {
-            cartItem.documentID === nextCartItem.documentID ?
-                {
-                    ...cartItem,
-                    quantity: cartItem.quantity + quantityIncrement
-                } :
-                cartItem
-        });
-    }
-
-    return [
+        return prevCartItems.map(cartItem =>
+          cartItem.documentID == nextCartItem.documentID
+            ? {
+              ...cartItem,
+              quantity: cartItem.quantity + quantityIncrement
+            } : cartItem
+        );
+      }
+    
+      return [
         ...prevCartItems,
         {
-            ...nextCartItem,
-            quantity: quantityIncrement
+          ...nextCartItem,
+          quantity: quantityIncrement
         }
-    ];
+      ];
 };
 
 export const handleRemoveCartItem = ({
