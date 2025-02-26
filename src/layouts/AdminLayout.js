@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { signOutUserStart } from './../redux/User/user.actions';
 
 import Footer from './../components/Footer';
@@ -9,6 +9,7 @@ import VerticalNav from './../components/VerticalNav';
 
 const AdminLayout = props => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const signOut = () => {
     dispatch(signOutUserStart());
@@ -25,6 +26,11 @@ const AdminLayout = props => {
                 <Link to="/admin">
                   Home
                 </Link>
+              </li>
+              <li>
+                <span className="wishlist" onClick={() => history.push('/admin/wishlist')}>
+                  Wishlist
+                </span>
               </li>
               <li>
                 <span className="signOut" onClick={() => signOut()}>

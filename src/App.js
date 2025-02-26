@@ -25,6 +25,7 @@ import ProductDetails from './pages/ProductDetails';
 import Recovery from './pages/Recovery';
 import Search from './pages/Search.js';
 import Signup from './pages/Signup';
+import Wishlists from './pages/Wishlist/index.js';
 
 // global styles
 import './default.scss';
@@ -60,6 +61,11 @@ const App = props => {
             <ProductDetails />
           </MainLayout>
         )} />
+        <Route path="/wishlists" render={() => (
+          <MainLayout>
+            <Wishlists />
+          </MainLayout>
+        )} />
         <Route path="/signup" render={() => (
           <MainLayout>
             <Signup />
@@ -80,6 +86,11 @@ const App = props => {
             <DashboardLayout>
               <Dashboard />
             </DashboardLayout>
+            <Route path="/wishlist" render={() => (
+                <AdminLayout>
+                  <Wishlists />
+                </AdminLayout>
+              )} />
           </WithAuth>
           )} />
           <Route path="/admin" render={() => (
@@ -87,6 +98,11 @@ const App = props => {
               <AdminLayout>
                 <Admin />
               </AdminLayout>
+              <Route path="/wishlist" render={() => (
+                <AdminLayout>
+                  <Wishlists />
+                </AdminLayout>
+              )} />
             </WithAdminAuth>
           )} />
       </Switch>
