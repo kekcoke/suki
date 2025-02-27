@@ -1,17 +1,19 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { selectCartItemsCount } from '../../redux/Cart/cart.selectors';
 import { signOutUserStart } from '../../redux/User/user.actions';
 import Logo from './../../assets/logo.png';
 import './styles.scss';
 
-const mapState = ({ user }) => ({
-    currentUser: user.currentUser
+const mapState = (state) => ({
+    currentUser: state.user.currentUser,
+    totalNumCartItems: selectCartItemsCount(state)
 });
 
 const Header = props => {
     const dispatch = useDispatch();
-    const { currentUser } = useSelector(mapState);
+    const { currentUser, totalNumCartItems } = useSelector(mapState);
     
     const signOut = () => {
         dispatch(signOutUserStart());
@@ -45,11 +47,16 @@ const Header = props => {
                     {currentUser && (
                         <ul>
                             <li>
+                                <Link to="/cart">
+                                    Your Cart ({totalNumCartItems})
+                                </Link>
+                            </li>
+                            <li key={1}>
                                 <Link to="/dashboard">
                                     My Account
                                 </Link>
                             </li>
-                            <li>
+                            <li key={2}>
                                 <span onClick={() => signOut()}>
                                     Log Out
                                 </span>
@@ -59,12 +66,12 @@ const Header = props => {
 
                     {!currentUser && (
                         <ul>
-                            <li>
+                            <li key={1}>
                                 <Link to="/signup">
                                     Signup
                                 </Link>
                             </li>
-                            <li>
+                            <li key={2}>
                                 <Link to="/login">
                                     Login
                                 </Link>
