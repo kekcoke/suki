@@ -5,6 +5,7 @@ import {
   reduceCartItem,
   removeCartItem,
 } from "../../../redux/Cart/cart.actions";
+import FormQuantityInput from "../../Forms/FormQuantityInput";
 
 const Item = (product) => {
   const dispatch = useDispatch();
@@ -27,6 +28,17 @@ const Item = (product) => {
     dispatch(reduceCartItem(product));
   };
 
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+
+    if (value === undefined || value === "" || value < 1 || value === quantity)
+      return;
+
+    if (e.target.value > quantity) return handleAddProduct(product);
+
+    return handleReduceItem(product);
+  };
+
   return (
     <table className="cartItem" border="0" cellPadding="10" cellSpacing="0">
       <tbody>
@@ -36,13 +48,14 @@ const Item = (product) => {
           </td>
           <td>{productName}</td>
           <td>
-            <span className="cartBtn" onClick={() => handleReduceItem(product)}>
-              {`< `}
-            </span>
-            <span>{quantity}</span>
-            <span className="cartBtn" onClick={() => handleAddProduct(product)}>
-              {` >`}
-            </span>
+            <FormQuantityInput
+              handleClickIncrease={() => dispatch(addProduct(product))}
+              handleClickDecrease={(e) => {
+                if (quantity > 1) dispatch(reduceCartItem(product));
+              }}
+              handleChange={handleInputChange}
+              quantity={quantity}
+            />
           </td>
           <td>{productPrice}</td>
           <td align="center">
