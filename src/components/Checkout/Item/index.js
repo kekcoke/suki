@@ -49,8 +49,8 @@ const Item = (product) => {
           <td>{productName}</td>
           <td>
             <FormQuantityInput
-              handleIncrease={handleAddProduct}
-              handleDecrease={handleReduceItem}
+              handleClickIncrease={() => dispatch(addProduct(product))}
+              handleClickDecrease={() => dispatch(reduceCartItem(product))}
               handleChange={handleInputChange}
               quantity={quantity}
             />
