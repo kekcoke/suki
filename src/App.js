@@ -18,6 +18,7 @@ import MainLayout from './layouts/MainLayout';
 
 // pages
 import Admin from './pages/Admin';
+import Cart from './pages/Cart';
 import Dashboard from './pages/Dashboard';
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
@@ -64,6 +65,11 @@ const App = props => {
         <Route path="/wishlists" render={() => (
           <MainLayout>
             <Wishlists />
+          </MainLayout>
+        )} />
+        <Route path="/cart" render={() => (
+          <MainLayout>
+            <Cart />
           </MainLayout>
         )} />
         <Route path="/signup" render={() => (
