@@ -50,7 +50,9 @@ const Item = (product) => {
           <td>
             <FormQuantityInput
               handleClickIncrease={() => dispatch(addProduct(product))}
-              handleClickDecrease={() => dispatch(reduceCartItem(product))}
+              handleClickDecrease={(e) => {
+                if (quantity > 1) dispatch(reduceCartItem(product));
+              }}
               handleChange={handleInputChange}
               quantity={quantity}
             />
