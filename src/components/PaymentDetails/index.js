@@ -13,6 +13,7 @@ import { apiInstance } from "../../utils";
 import Button from "../Forms/Button";
 import Checkbox from "../Forms/Checkbox";
 import FormInput from "../Forms/FormInput";
+import Errors from "../Iterator/Error";
 import "./styles.scss";
 
 const initialAddressState = {
@@ -43,6 +44,8 @@ const PaymentDetails = () => {
   });
   const [recipientName, setRecipientName] = useState("");
   const [nameOnCard, setNameOnCard] = useState("");
+  const [cartErrors, setErrors] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const singleAddressMessage =
     "Billing address is the same as shipping address.";
@@ -78,6 +81,9 @@ const PaymentDetails = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    if (cartErrors.length > 1) setErrors([]);
+
     const cardElement = elements.getElement("card");
 
     // bar empty shipping address elements
@@ -98,6 +104,8 @@ const PaymentDetails = () => {
     ) {
       return;
     }
+
+    setIsSubmitting(true);
 
     apiInstance
       .post("/payments/create", {
@@ -130,7 +138,13 @@ const PaymentDetails = () => {
                 dispatch(clearCart());
               });
           });
-      });
+      })
+      .catch((err) => {
+        setErrors([
+          "The following item/s is now unavailable or the payment is experiencing issue. Please remove item/s from the cart or try again later.",
+        ]);
+      })
+      .finally(() => setIsSubmitting(false));
   };
 
   const configCardElement = {
@@ -147,6 +161,8 @@ const PaymentDetails = () => {
     <div className="paymentDetails">
       <form onSubmit={handleFormSubmit}>
         <div className="group">
+          <Errors errors={cartErrors} />
+
           <h2>Shipping Address</h2>
 
           <FormInput
@@ -303,7 +319,9 @@ const PaymentDetails = () => {
           <CardElement options={configCardElement} />
         </div>
 
-        <Button type="submit">Pay Now</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          Pay Now
+        </Button>
       </form>
     </div>
   );
