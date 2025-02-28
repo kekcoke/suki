@@ -11,6 +11,7 @@ import {
 } from "../../redux/Cart/cart.selectors";
 import { apiInstance } from "../../utils";
 import Button from "../Forms/Button";
+import Checkbox from "../Forms/Checkbox";
 import FormInput from "../Forms/FormInput";
 import "./styles.scss";
 
@@ -43,6 +44,9 @@ const PaymentDetails = () => {
   const [recipientName, setRecipientName] = useState("");
   const [nameOnCard, setNameOnCard] = useState("");
 
+  const singleAddressMessage =
+    "Billing address is the same as shipping address.";
+
   useEffect(() => {
     if (itemCount < 1) history.push("/");
   }, [itemCount]);
@@ -51,7 +55,7 @@ const PaymentDetails = () => {
     const { name, value } = e.target;
 
     setShippingAddress({
-      ...billingAddress,
+      ...shippingAddress,
       [name]: value,
     });
   };
@@ -63,6 +67,13 @@ const PaymentDetails = () => {
       ...billingAddress,
       [name]: value,
     });
+  };
+
+  const toggleBillingAddress = (flag) => {
+    if (flag) {
+      setBillingAddress({ ...shippingAddress });
+      console.log(billingAddress);
+    }
   };
 
   const handleFormSubmit = async (e) => {
@@ -206,6 +217,11 @@ const PaymentDetails = () => {
               valueType="short"
             />
           </div>
+
+          <Checkbox
+            label={singleAddressMessage}
+            handleChange={toggleBillingAddress}
+          />
         </div>
 
         <div className="group">
