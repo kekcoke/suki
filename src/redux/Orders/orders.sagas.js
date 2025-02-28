@@ -59,7 +59,7 @@ export function* onGetOrderDetailsStart() {
   yield takeLatest(ordersTypes.GET_ORDER_DETAILS_START, getOrderDetails);
 }
 
-export default function* orderSagas() {
+export default function* ordersSagas() {
   yield all([
     call(onSaveOrderHistoryStart),
     call(onGetOrderDetailsStart),
