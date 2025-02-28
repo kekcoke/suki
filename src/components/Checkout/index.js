@@ -76,7 +76,9 @@ const Checkout = ({}) => {
                             <tbody>
                               <tr>
                                 <td>
-                                  <h3>Total: {total}</h3>
+                                  <h3>
+                                    Total: {parseInt(total, 10).toFixed(2)}
+                                  </h3>
                                 </td>
                               </tr>
                             </tbody>
