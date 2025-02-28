@@ -1,15 +1,10 @@
-.formRow {
+.formRowCheckBox {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 1.5rem;
 
-    .radio {
-        display: block;
-        width: 100%;
-        margin: 10px auto;
-        padding: 10px 5px;
-        font-size: 1rem;
-        font-weight: 400;
-        text-align: left;
-        line-height: 1;
-        border: 1px solid #9e9e9e;
-        outline: none;
+    .checkBox {
+        vertical-align: middle;
+        margin: 1.5rem;
     }
 }
