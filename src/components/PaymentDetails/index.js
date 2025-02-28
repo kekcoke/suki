@@ -101,7 +101,7 @@ const PaymentDetails = () => {
 
     apiInstance
       .post("/payments/create", {
-        amount: total * 100,
+        amount: total.toFixed(0) * 100,
         shipping: {
           name: recipientName,
           address: {

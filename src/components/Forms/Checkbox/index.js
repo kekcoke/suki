@@ -17,7 +17,7 @@ const Checkbox = ({ handleChange, label, ...otherProps }) => {
         onChange={handleCheckboxChange}
         {...otherProps}
       />
-      {label && <label for="checkBox">{label}</label>}
+      {label && <label>{label}</label>}
     </div>
   );
 };
