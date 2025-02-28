@@ -1,10 +1,10 @@
-import { fireStore } from "./../../firebase/utils";
+import { firestore } from "./../../firebase/utils";
 
 const ORDERS = "orders";
 
 export const handleSaveOrder = (order) => {
   return new Promise((resolve, reject) => {
-    fireStore
+    firestore
       .collection(ORDERS)
       .doc()
       .set(order)
@@ -15,7 +15,7 @@ export const handleSaveOrder = (order) => {
 
 export const handleGetUserOrderHistory = (uid) => {
   return new Promise((resolve, reject) => {
-    let ref = fireStore.collection(ORDERS).orderBy("orderCreatedDate");
+    let ref = firestore.collection(ORDERS).orderBy("orderCreatedDate");
     ref = ref.where("orderUserID", "==", uid);
 
     ref

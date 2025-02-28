@@ -4,11 +4,12 @@ import { CountryDropdown } from "react-country-region-selector";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
-import { clearCart } from "../../redux/Cart/cart.actions";
 import {
+  selectCartItems,
   selectCartItemsCount,
   selectCartTotal,
 } from "../../redux/Cart/cart.selectors";
+import { saveOrderHistory } from "../../redux/Orders/orders.actions";
 import { apiInstance } from "../../utils";
 import Button from "../Forms/Button";
 import Checkbox from "../Forms/Checkbox";
@@ -28,13 +29,14 @@ const initialAddressState = {
 const mapState = createStructuredSelector({
   total: selectCartTotal,
   itemCount: selectCartItemsCount,
+  cartItems: selectCartItems,
 });
 
 const PaymentDetails = () => {
   const stripe = useStripe();
   const elements = useElements();
   const history = useHistory();
-  const { total, itemCount } = useSelector(mapState);
+  const { total, itemCount, cartItems } = useSelector(mapState);
   const dispatch = useDispatch();
   const [billingAddress, setBillingAddress] = useState({
     ...initialAddressState,
@@ -51,7 +53,7 @@ const PaymentDetails = () => {
     "Billing address is the same as shipping address.";
 
   useEffect(() => {
-    if (itemCount < 1) history.push("/");
+    if (itemCount < 1) history.push("/dashboard");
   }, [itemCount]);
 
   const handleShipping = (e) => {
@@ -135,7 +137,28 @@ const PaymentDetails = () => {
                 payment_method: paymentMethod.id,
               })
               .then(({ paymentIntent }) => {
-                dispatch(clearCart());
+                const configOrder = {
+                  orderTotal: total,
+                  orderItems: cartItems.map((item) => {
+                    const {
+                      documentID,
+                      productThumbnail,
+                      productName,
+                      productPrice,
+                      quantity,
+                    } = item;
+
+                    return {
+                      documentID,
+                      productThumbnail,
+                      productName,
+                      productPrice,
+                      quantity,
+                    };
+                  }),
+                };
+                dispatch(saveOrderHistory(configOrder));
+                // dispatch(clearCart());
               });
           });
       })
