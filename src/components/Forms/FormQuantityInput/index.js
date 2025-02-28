@@ -11,7 +11,11 @@ const FormQuantityInput = ({
 }) => {
   return (
     <div class="quantity">
-      <button class="minus" aria-label="Decrease" onClick={handleClickDecrease}>
+      <button
+        className="minus"
+        aria-label="Decrease"
+        onClick={handleClickDecrease}
+      >
         &minus;
       </button>
       <input
@@ -20,7 +24,11 @@ const FormQuantityInput = ({
         value={quantity}
         onChange={handleChange}
       />
-      <button class="plus" aria-label="Increase" onClick={handleClickIncrease}>
+      <button
+        className="plus"
+        aria-label="Increase"
+        onClick={handleClickIncrease}
+      >
         +
       </button>
     </div>
