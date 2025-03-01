@@ -22,6 +22,7 @@ import Cart from "./pages/Cart";
 import Dashboard from "./pages/Dashboard";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
+import Order from "./pages/Order/index.js";
 import Payment from "./pages/Payment";
 import ProductDetails from "./pages/ProductDetails";
 import Recovery from "./pages/Recovery";
@@ -142,6 +143,26 @@ const App = (props) => {
                   </AdminLayout>
                 )}
               />
+            </WithAuth>
+          )}
+        />
+        <Route
+          path="/order/:orderID"
+          render={() => (
+            <WithAuth>
+              <DashboardLayout>
+                <Order />
+              </DashboardLayout>
+            </WithAuth>
+          )}
+        />
+        <Route
+          path="/order/:orderID"
+          render={() => (
+            <WithAuth>
+              <DashboardLayout>
+                <Order />
+              </DashboardLayout>
             </WithAuth>
           )}
         />
