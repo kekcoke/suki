@@ -6,9 +6,9 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
-import { DateTime } from "luxon";
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { convertNanoSecondsToDate } from "../../utils/datetime";
 
 const columns = [
   {
@@ -36,7 +36,7 @@ const formatText = (columnName, columnValue) => {
     case "orderTotal":
       return `${columnValue}`;
     case "orderCreatedDate":
-      return DateTime.fromFormat(columnValue.nano).format("DD/MM/YYYY");
+      return convertNanoSecondsToDate(columnValue.nanoseconds, "yyyy-MM-dd");
     default:
       return columnValue;
   }
