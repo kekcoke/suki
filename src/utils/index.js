@@ -11,3 +11,13 @@ export const checkUserIsAdmin = (currentUser) => {
 export const apiInstance = axios.create({
   baseURL: "",
 });
+
+export const renameKeys = (keysMap, obj) => {
+  Object.keys(obj).reduce(
+    (acc, key) => ({
+      ...acc,
+      ...{ [keysMap[key] || key]: obj[key] },
+    }),
+    {}
+  );
+};
