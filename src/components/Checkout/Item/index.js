@@ -63,7 +63,7 @@ const Item = (product) => {
               className="cartBtn remove"
               onClick={() => handleRemoveCartItem(documentID)}
             >
-              X
+              <i class="fas fa-trash"></i>
             </span>
           </td>
         </tr>
