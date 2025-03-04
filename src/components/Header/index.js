@@ -69,7 +69,7 @@ const Header = (props) => {
 
             {!currentUser && [
               <li key={1} className="hideOnMobile">
-                <Link to="/registration">Register</Link>
+                <Link to="/signup">Sign Up</Link>
               </li>,
               <li key={2}>
                 <Link to="/login">

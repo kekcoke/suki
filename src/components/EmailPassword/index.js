@@ -69,9 +69,9 @@ const EmailPassword = (props) => {
       </form>
 
       <div className="links">
-        <Link to="/login">LogIn</Link>
+        <Link to="/login">Log In</Link>
         {` | `}
-        <Link to="/registration">Register</Link>
+        <Link to="/signup">Sign Up</Link>
       </div>
     </AuthWrapper>
   );
