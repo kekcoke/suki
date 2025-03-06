@@ -1,15 +1,14 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
-import { signOutUserStart } from './../redux/User/user.actions';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import Footer from "./../components/Footer";
+import Header from "./../components/Header";
+import VerticalNav from "./../components/VerticalNav";
+import { signOutUserStart } from "./../redux/User/user.actions";
 
-import Footer from './../components/Footer';
-import Header from './../components/Header';
-import VerticalNav from './../components/VerticalNav';
-
-const AdminLayout = props => {
+const AdminLayout = (props) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const signOut = () => {
     dispatch(signOutUserStart());
@@ -23,12 +22,13 @@ const AdminLayout = props => {
           <VerticalNav>
             <ul>
               <li>
-                <Link to="/admin">
-                  Home
-                </Link>
+                <Link to="/admin">Home</Link>
               </li>
               <li>
-                <span className="wishlist" onClick={() => history.push('/admin/wishlist')}>
+                <span
+                  className="wishlist"
+                  onClick={() => navigate("/admin/wishlist")}
+                >
                   Wishlist
                 </span>
               </li>
@@ -40,9 +40,7 @@ const AdminLayout = props => {
             </ul>
           </VerticalNav>
         </div>
-        <div className="content">
-          {props.children}
-        </div>
+        <div className="content">{props.children}</div>
       </div>
       <Footer />
     </div>

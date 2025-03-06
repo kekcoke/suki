@@ -5,7 +5,7 @@ import FormInput from "./../Forms/FormInput";
 import "./styles.scss";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   emailSignInStart,
   googleSignInStart,
@@ -17,7 +17,7 @@ const mapState = ({ user }) => ({
 
 const SignIn = (props) => {
   const { currentUser } = useSelector(mapState);
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +25,7 @@ const SignIn = (props) => {
   useEffect(() => {
     if (currentUser) {
       resetForm();
-      history.push("/");
+      navigate("/");
     }
   }, [currentUser]);
 

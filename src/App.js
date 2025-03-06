@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
-import { checkUserSession } from "./redux/User/user.actions";
+import { Route, Routes } from "react-router-dom";
+import { checkUserSession } from "./redux/User/user.actions.js";
 
 // components
 import AdminToolbar from "./components/AdminToolbar";
@@ -43,148 +43,132 @@ const App = (props) => {
   return (
     <div className="App">
       <AdminToolbar />
-      <Switch>
+      <Routes>
         <Route
           exact
           path="/"
-          render={() => (
+          element={
             <HomepageLayout>
               <Homepage />
             </HomepageLayout>
-          )}
+          }
         />
         <Route
           exact
           path="/search"
-          render={() => (
+          element={
             <MainLayout>
               <Search />
             </MainLayout>
-          )}
+          }
         />
         <Route
           path="/search/:filterType"
-          render={() => (
+          element={
             <MainLayout>
               <Search />
             </MainLayout>
-          )}
+          }
         />
         <Route
           path="/product/:productID"
-          render={() => (
+          element={
             <MainLayout>
               <ProductDetails />
             </MainLayout>
-          )}
+          }
         />
         <Route
           path="/wishlists"
-          render={() => (
+          element={
             <MainLayout>
               <Wishlists />
             </MainLayout>
-          )}
+          }
         />
         <Route
           path="/cart"
-          render={() => (
+          element={
             <MainLayout>
               <Cart />
             </MainLayout>
-          )}
+          }
         />
         <Route
           path="/payment"
-          render={() => (
+          element={
             <WithAuth>
               <MainLayout>
                 <Payment />
               </MainLayout>
             </WithAuth>
-          )}
+          }
         />
         <Route
           path="/signup"
-          render={() => (
+          element={
             <MainLayout>
               <Signup />
             </MainLayout>
-          )}
+          }
         />
         <Route
           path="/login"
-          render={() => (
+          element={
             <MainLayout>
               <Login />
             </MainLayout>
-          )}
+          }
         />
         <Route
           path="/recovery"
-          render={() => (
+          element={
             <MainLayout>
               <Recovery />
             </MainLayout>
-          )}
+          }
         />
         <Route
           path="/dashboard"
-          render={() => (
+          element={
             <WithAuth>
               <DashboardLayout>
                 <Dashboard />
               </DashboardLayout>
-              <Route
-                path="/wishlist"
-                render={() => (
-                  <AdminLayout>
-                    <Wishlists />
-                  </AdminLayout>
-                )}
-              />
             </WithAuth>
-          )}
+          }
         />
         <Route
           path="/order/:orderID"
-          render={() => (
+          element={
             <WithAuth>
               <DashboardLayout>
                 <Order />
               </DashboardLayout>
             </WithAuth>
-          )}
+          }
         />
         <Route
           path="/order/:orderID"
-          render={() => (
+          element={
             <WithAuth>
               <DashboardLayout>
                 <Order />
               </DashboardLayout>
             </WithAuth>
-          )}
+          }
         />
         <Route
           path="/admin"
-          render={() => (
+          element={
             <WithAdminAuth>
               <AdminLayout>
                 <Admin />
               </AdminLayout>
-              <Route
-                path="/wishlist"
-                render={() => (
-                  <AdminLayout>
-                    <Wishlists />
-                  </AdminLayout>
-                )}
-              />
             </WithAdminAuth>
-          )}
+          }
         />
-      </Switch>
+      </Routes>
     </div>
   );
 };
