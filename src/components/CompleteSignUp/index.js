@@ -1,19 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { withRouter } from "react-router-dom";
-import "./styles.scss";
-
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import countryList from "../../utils/country";
-import FormSelect from "../Forms/FormSelect";
-import { signUpUserStart } from "./../../redux/User/user.actions";
-import AuthWrapper from "./../AuthWrapper";
-import Button from "./../Forms/Button";
-import FormInput from "./../Forms/FormInput";
+import { useHistory } from "react-router-dom";
+import { completeGoogleSignInStart } from "./../../redux/User/user.actions";
+
+import "./styles.scss";
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
-  userErr: user.userErr,
+  userErr: user.userErr ?? null,
 });
 
 const INITIAL_STATE_ARRAY_FIRST_INDEX = {
@@ -21,38 +15,25 @@ const INITIAL_STATE_ARRAY_FIRST_INDEX = {
   value: "",
 };
 
-const SignupComponent = (props) => {
+const CompleteSignUpComponent = (props) => {
   const { currentUser, userErr } = useSelector(mapState);
-  const dispatch = useDispatch();
-  const [displayName, setDisplayName] = useState("");
-  const [email, setEmail] = useState("");
+  const history = useHistory();
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
   const [region, setRegion] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState([]);
   const [currency, setCurrency] = useState("cad");
+  const [errors, setErrors] = useState([]);
   const shortCountryList = [INITIAL_STATE_ARRAY_FIRST_INDEX].concat(
     countryList.map((country) => {
       return { name: country.countryName, value: country.countryShortCode };
     })
   );
-
   const [regionsList, setRegionsList] = useState([]);
 
-  useEffect(() => {
-    if (currentUser) {
-      resetForm();
-      props.history.push("/");
-    }
-  }, [currentUser]);
-
-  useEffect(() => {
-    if (Array.isArray(userErr) && userErr.length > 0) {
-      setErrors(userErr);
-    }
-  }, [userErr]);
+  if (!currentUser) {
+    setErrors("We were unable to sign in thru your provider.");
+    history.push("/");
+  }
 
   useEffect(() => {
     if (!country || country === undefined) {
@@ -80,33 +61,27 @@ const SignupComponent = (props) => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    dispatch(
-      signUpUserStart({
-        displayName,
-        email,
-        phone,
-        country,
-        region,
-        currency,
-        password,
-        confirmPassword,
-      })
-    );
+    const additionalData = {
+      phone,
+      country,
+      region,
+    };
+
+    const userCredentialsAndProfile = { user, additionalData };
+    dispatch(completeGoogleSignInStart(userCredentialsAndProfile));
+
+    resetForm();
   };
 
   const resetForm = () => {
-    setDisplayName("");
-    setEmail("");
     setPhone("");
     setCountry("");
     setRegion("");
-    setPassword("");
-    setConfirmPassword("");
     setErrors([]);
   };
 
   const configAuthWrapper = {
-    headline: "Signup",
+    headline: "Complete Signup",
   };
 
   return (
@@ -120,24 +95,6 @@ const SignupComponent = (props) => {
           </ul>
         )}
         <form onSubmit={handleFormSubmit}>
-          <FormInput
-            type="text"
-            name="displayName"
-            value={displayName}
-            placeholder="Full name"
-            handleChange={(e) => setDisplayName(e.target.value)}
-            required
-          />
-
-          <FormInput
-            type="text"
-            name="email"
-            value={email}
-            placeholder="Email"
-            handleChange={(e) => setEmail(e.target.value)}
-            required
-          />
-
           <FormInput
             type="phone"
             name="phone"
@@ -165,29 +122,10 @@ const SignupComponent = (props) => {
             required
           />
 
-          <FormInput
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Password"
-            handleChange={(e) => setPassword(e.target.value)}
-            required
-          />
-
-          <FormInput
-            type="password"
-            name="confirmPassword"
-            value={confirmPassword}
-            placeholder="Confirm Password"
-            handleChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-
-          <Button type="submit">Register</Button>
+          <Button type="submit">Submit</Button>
         </form>
       </div>
     </AuthWrapper>
   );
 };
-
-export default withRouter(SignupComponent);
+export default CompleteSignUpComponent;

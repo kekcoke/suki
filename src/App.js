@@ -19,6 +19,7 @@ import MainLayout from "./layouts/MainLayout";
 // pages
 import Admin from "./pages/Admin";
 import Cart from "./pages/Cart";
+import CompleteSignUp from "./pages/CompleteSignUp/index.js";
 import Dashboard from "./pages/Dashboard";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
@@ -110,6 +111,16 @@ const App = (props) => {
             <MainLayout>
               <Signup />
             </MainLayout>
+                    <Route
+                    path="/profile-setup"
+                    render={() => {
+                      <WithAuth>
+                        <MainLayout>
+                          <CompleteSignUp />
+                        </MainLayout>
+                      </WithAuth>;
+                    }}
+                  />
           )}
         />
         <Route

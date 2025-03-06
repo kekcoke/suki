@@ -6,10 +6,7 @@ import "./styles.scss";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import {
-  emailSignInStart,
-  googleSignInStart,
-} from "../../redux/User/user.actions";
+import { emailSignInStart } from "../../redux/User/user.actions";
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
@@ -18,6 +15,7 @@ const mapState = ({ user }) => ({
 const SignIn = (props) => {
   const { currentUser } = useSelector(mapState);
   const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
