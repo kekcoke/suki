@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@material-ui/core";
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { convertNanoSecondsToDate } from "../../utils/datetime";
 
 const columns = [
@@ -43,7 +43,7 @@ const formatText = (columnName, columnValue) => {
 };
 
 const OrderHistory = ({ orders }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <TableContainer>
@@ -71,7 +71,7 @@ const OrderHistory = ({ orders }) => {
               return (
                 <TableRow
                   key={pos}
-                  onClick={() => history.push(`/order/${documentID}`)}
+                  onClick={() => navigate(`/order/${documentID}`)}
                 >
                   {columns.map((column, pos) => {
                     const columnName = column.id;

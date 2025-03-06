@@ -2,7 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useEffect, useState } from "react";
 import { CountryDropdown } from "react-country-region-selector";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import {
   selectCartItems,
@@ -35,7 +35,7 @@ const mapState = createStructuredSelector({
 const PaymentDetails = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { total, itemCount, cartItems } = useSelector(mapState);
   const dispatch = useDispatch();
   const [billingAddress, setBillingAddress] = useState({
@@ -53,7 +53,7 @@ const PaymentDetails = () => {
     "Billing address is the same as shipping address.";
 
   useEffect(() => {
-    if (itemCount < 1) history.push("/dashboard");
+    if (itemCount < 1) navigate("/dashboard");
   }, [itemCount]);
 
   const handleShipping = (e) => {

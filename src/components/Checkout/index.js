@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import Button from "../Forms/Button";
 import {
@@ -16,7 +16,7 @@ const mapState = createStructuredSelector({
 });
 
 const Checkout = ({}) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { cartItems, total } = useSelector(mapState);
 
   const errMsg = "You have no items in your cart.";
@@ -91,14 +91,12 @@ const Checkout = ({}) => {
                             <tbody>
                               <tr>
                                 <td>
-                                  <Button onClick={() => history.goBack()}>
+                                  <Button onClick={() => navigate(-1)}>
                                     Continue Shopping
                                   </Button>
                                 </td>
                                 <td>
-                                  <Button
-                                    onClick={() => history.push("/payment")}
-                                  >
+                                  <Button onClick={() => navigate("/payment")}>
                                     Checkout
                                   </Button>
                                 </td>

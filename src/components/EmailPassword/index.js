@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   resetPasswordStart,
   resetUserState,
@@ -16,7 +16,7 @@ const mapState = ({ user }) => ({
 });
 
 const EmailPassword = (props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { resetPasswordSuccess, userErr } = useSelector(mapState);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -25,7 +25,7 @@ const EmailPassword = (props) => {
   useEffect(() => {
     if (resetPasswordSuccess) {
       dispatch(resetUserState());
-      history.push("/login");
+      navigate("/login");
     }
   }, [resetPasswordSuccess]);
 
